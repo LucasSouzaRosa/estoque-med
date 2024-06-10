@@ -20,4 +20,4 @@ export class FabricanteEntity {
 
     @ManyToMany(() => RemedioEntity, (remedio) => remedio.fabricantes)
     remedios: RemedioEntity[]
-9}
+}
