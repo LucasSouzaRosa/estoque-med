@@ -55,29 +55,29 @@ export class FabricanteService {
     }
 
     private validateFabricante(fabricante: FabricanteEntity | FabricanteDto) {
-        this.validarCnpj(fabricante.cnpj);
-        this.validarTelefone(fabricante.telefone);
-        this.validarEmail(fabricante.email);
+        this.validateCnpjUnico(fabricante.cnpj);
+        this.validateFabricanteAtivo(fabricante.id);
+        this.validateLicencaFabricanteAtivo(fabricante.id);
     }
 
-    private validarCnpj(cnpj: string) {
-        if (cnpj.length !== 14) {
-            throw new BadRequestException('CNPJ deve ter exatamente 14 caracteres');
+    private async validateCnpjUnico(cnpj: string) {
+        const existingFabricante = await this.fabricanteRepository.findOne({ where: { cnpj } });
+        if (existingFabricante) {
+            throw new BadRequestException('Já existe um fabricante com o CNPJ ' + cnpj);
         }
     }
 
-    private validarTelefone(telefone: string) {
-        const telefoneLength = telefone.length;
-        if (telefoneLength < 8 || telefoneLength > 11) {
-            throw new BadRequestException('Telefone deve ter entre 8 e 11 caracteres');
+    private async validateFabricanteAtivo(id: string) {
+        const fabricante = await this.findById(id);
+        if (!fabricante.ativo) {
+            throw new BadRequestException('Fabricantes inativos não podem estar associados a novos remédios');
         }
     }
 
-    private validarEmail(email: string) {
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!regex.test(email)) {
-            throw new BadRequestException('Email deve ter um formato válido');
+    private async validateLicencaFabricanteAtivo(id: string) {
+        const fabricante = await this.findById(id);
+        if (!fabricante.licencaativa) {
+            throw new BadRequestException('Fabricantes com licenças inativas não podem estar associados a novos remédios');
         }
-
     }
 }

@@ -1,4 +1,6 @@
 import {
+    IsArray,
+    IsBoolean,
     IsDateString,
     IsEnum,
     IsNotEmpty,
@@ -27,4 +29,11 @@ import {
     @IsString({ message: 'O campo telefone deve ser do tipo texto' })
     @IsNotEmpty({ message: 'O telefone não pode ser vazio' })
     telefone: string;
+
+    @IsBoolean()
+    ativo: boolean;
+
+    @IsBoolean()
+    licencaativa: boolean;
+
   }

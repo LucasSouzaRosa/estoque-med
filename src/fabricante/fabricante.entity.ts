@@ -18,6 +18,12 @@ export class FabricanteEntity {
     @Column()
     telefone: string;
 
+    @Column({ default: true })
+    ativo: boolean;
+
     @ManyToMany(() => RemedioEntity, (remedio) => remedio.fabricantes)
     remedios: RemedioEntity[]
+
+    @Column()
+    licencaativa: boolean;
 }

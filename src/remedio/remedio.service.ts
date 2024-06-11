@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import { RemedioEntity } from './remedio.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RemedioDto } from './remedio.dto';
+import { TipoEnum } from './tipo.enum';
 
 @Injectable()
 export class RemedioService {
@@ -56,6 +57,8 @@ export class RemedioService {
 
     private validateRemedio(remedio: RemedioEntity | RemedioDto) {
         this.validateRemedioValidade(remedio);
+        this.validateRemedioControladoSaldo(remedio);
+        this.validateRemedioTipoControlado(remedio);
     }
 
     private validateRemedioValidade(remedio: RemedioEntity | RemedioDto) {
@@ -66,7 +69,26 @@ export class RemedioService {
             throw new BadRequestException('A data de validade do remédio não pode ser menor que a data atual');
         }
     }
+
+    private validateRemedioControladoSaldo(remedio: RemedioEntity | RemedioDto) {
+        if (remedio.controlado && remedio.saldo <= 0) {
+            throw new BadRequestException('O saldo de um remédio controlado não pode ser zero ou negativo');
+        }
+    }
+
+    private validateRemedioTipoControlado(remedio: RemedioEntity | RemedioDto) {
+        if (remedio.tipo === TipoEnum.GENERICO && remedio.controlado) {
+            throw new BadRequestException('Um remédio do tipo GENÉRICO não pode ser controlado');
+        }
+    }
+
+    private adicionarSaldo(remedio: RemedioEntity, quantidadeAdicional: number) {
+        remedio.saldo += quantidadeAdicional;
+    }
     
+    private removerSaldo(remedio: RemedioEntity, quantidadeAdicional: number) {
+        remedio.saldo -= quantidadeAdicional;
+    }
 
 
 

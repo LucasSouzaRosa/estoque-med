@@ -2,6 +2,7 @@ import { Column, Entity, JoinColumn, JoinTable, ManyToMany, PrimaryGeneratedColu
 import { TipoEnum } from "./tipo.enum";
 import { FabricanteEntity } from "src/fabricante/fabricante.entity";
 import { IsNotEmpty } from "class-validator";
+import { PrincipiosAtivosEntity } from "src/principios_ativos/principios_ativos.entity";
 
 
 @Entity({ name: 'remedios'})
@@ -40,5 +41,13 @@ export class RemedioEntity {
         inverseJoinColumn: { name: 'fabricante_id'},
     })
     fabricantes: FabricanteEntity[];
+
+    @ManyToMany(() => PrincipiosAtivosEntity, (principios_ativos) => principios_ativos.remedios)
+    @JoinTable({
+        name: 'remedios_principiosAtivos',
+        joinColumn: { name: 'remedio_id' },
+        inverseJoinColumn: { name: 'principiosAtivos_id'},
+    })
+    principios_ativos: FabricanteEntity[];
 
 }

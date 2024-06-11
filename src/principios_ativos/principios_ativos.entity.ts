@@ -9,6 +9,9 @@ export class PrincipiosAtivosEntity {
     @Column()
     nome: string;
 
-    @ManyToMany(() => RemedioEntity, (remedio) => remedio.principiosativos)
+    @ManyToMany(() => RemedioEntity, (remedio) => remedio.principios_ativos)
     remedios: RemedioEntity[]
+
+    @Column()
+    ativo: boolean;
 }
