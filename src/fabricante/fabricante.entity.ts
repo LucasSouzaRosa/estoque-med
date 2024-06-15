@@ -1,5 +1,5 @@
 import { RemedioEntity } from "src/remedio/remedio.entity";
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({ name: 'fabricante'})
 export class FabricanteEntity {
@@ -21,8 +21,8 @@ export class FabricanteEntity {
     @Column({ default: true })
     ativo: boolean;
 
-    @ManyToMany(() => RemedioEntity, (remedio) => remedio.fabricantes)
-    remedios: RemedioEntity[]
+    @OneToMany(() => RemedioEntity, (remedio) => remedio.fabricante)
+    remedios: RemedioEntity[];
 
     @Column()
     licencaativa: boolean;

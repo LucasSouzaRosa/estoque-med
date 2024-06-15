@@ -43,9 +43,6 @@ import { FabricanteDto } from 'src/fabricante/fabricante.dto';
     @IsBoolean()
     controlado: boolean;
 
-    @IsArray()
-    @ArrayNotEmpty()
-    @ValidateNested({ each: true })
-    @Type(() => FabricanteDto)
-    fabricantes: FabricanteDto[];
+    @IsUUID()
+    fabricanteId: string;
   }

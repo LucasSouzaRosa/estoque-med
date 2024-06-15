@@ -18,14 +18,14 @@ export class RemedioService {
 
     findAll() {
         return this.remedioRepository.find({
-            relations: { fabricantes: true},
+            relations: { fabricante: true},
         });
     }
 
     async findById(id: string): Promise<RemedioEntity> {
         const findOne = await this.remedioRepository.findOne({
             where: { id },
-            relations: { fabricantes: true },
+            relations: { fabricante: true },
         });
         if (!findOne) {
             throw new NotFoundException('Remédio não encontrado com o id ' + id);

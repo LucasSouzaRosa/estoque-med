@@ -8,6 +8,7 @@ import {
     IsString,
     IsUUID,
   } from 'class-validator';
+import { RemedioEntity } from 'src/remedio/remedio.entity';
   
   export class FabricanteDto {
     @IsUUID()
@@ -35,5 +36,8 @@ import {
 
     @IsBoolean()
     licencaativa: boolean;
+
+    @IsArray()
+    remedios: RemedioEntity[];
 
   }

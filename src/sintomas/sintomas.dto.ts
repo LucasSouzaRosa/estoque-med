@@ -10,7 +10,7 @@ import {
 import { Type } from 'class-transformer';
 import { RemedioDto } from 'src/remedio/remedio.dto';
   
-  export class PrincipiosAtivosDto {
+  export class SintomasDto {
     @IsUUID()
     @IsOptional()
     id: string;

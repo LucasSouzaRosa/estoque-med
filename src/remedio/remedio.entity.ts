@@ -1,8 +1,8 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { TipoEnum } from "./tipo.enum";
 import { FabricanteEntity } from "src/fabricante/fabricante.entity";
 import { IsNotEmpty } from "class-validator";
-import { PrincipiosAtivosEntity } from "src/principios_ativos/principios_ativos.entity";
+import { SintomasEntity } from "src/sintomas/sintomas.entity"; 
 
 
 @Entity({ name: 'remedios'})
@@ -34,20 +34,15 @@ export class RemedioEntity {
     @Column()
     controlado: boolean;
 
-    @ManyToMany(() => FabricanteEntity, (fabricante) => fabricante.remedios)
-    @JoinTable({
-        name: 'remedios_fabricantes',
-        joinColumn: { name: 'remedio_id' },
-        inverseJoinColumn: { name: 'fabricante_id'},
-    })
-    fabricantes: FabricanteEntity[];
+    @ManyToOne(() => FabricanteEntity, (fabricante) => fabricante.remedios)
+    fabricante: FabricanteEntity;
 
-    @ManyToMany(() => PrincipiosAtivosEntity, (principios_ativos) => principios_ativos.remedios)
+    @ManyToMany(() => SintomasEntity, (sintomas) => sintomas.remedios)
     @JoinTable({
-        name: 'remedios_principiosAtivos',
+        name: 'remedios_sintomas',
         joinColumn: { name: 'remedio_id' },
-        inverseJoinColumn: { name: 'principiosAtivos_id'},
+        inverseJoinColumn: { name: 'sintomas_id'},
     })
-    principios_ativos: FabricanteEntity[];
+    sintomas: SintomasEntity[];
 
 }
