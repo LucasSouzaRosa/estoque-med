@@ -1,8 +1,4 @@
-import {
-    BadRequestException,
-    Injectable,
-    NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { RemedioEntity } from './remedio.entity';
 import { InjectRepository } from '@nestjs/typeorm';

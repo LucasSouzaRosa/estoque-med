@@ -35,6 +35,7 @@ export class RemedioEntity {
     controlado: boolean;
 
     @ManyToOne(() => FabricanteEntity, (fabricante) => fabricante.remedios)
+    @JoinColumn({ name: "fabricante_id" })
     fabricante: FabricanteEntity;
 
     @ManyToMany(() => SintomasEntity, (sintomas) => sintomas.remedios)

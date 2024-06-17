@@ -27,7 +27,7 @@ export class SintomasService {
             relations: { remedios: true },
         });
         if (!findOne) {
-            throw new NotFoundException('Princípio ativo não encontrado com o id ' + id);
+            throw new NotFoundException('Sintoma não encontrado com o id ' + id);
         }
         return findOne;
     }
