@@ -6,8 +6,8 @@ export class FabricanteEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column()
-    razaosocial: string;
+    @Column({name: "razao_social"})
+    razaoSocial: string;
 
     @Column()
     cnpj: string;

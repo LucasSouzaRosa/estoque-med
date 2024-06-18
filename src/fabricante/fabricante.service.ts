@@ -41,7 +41,7 @@ export class FabricanteService {
     async create(dto: FabricanteDto) {
         const newFabricante = this.fabricanteRepository.create(dto);
     
-        this.validateFabricante(newFabricante);
+        this.validateFabricante(newFabricante, true);
     
         return this.fabricanteRepository.save(newFabricante);
     }
@@ -49,15 +49,17 @@ export class FabricanteService {
     async update(fabricante: FabricanteDto) {
         await this.findById(fabricante.id);
     
-        this.validateFabricante(fabricante);
+        this.validateFabricante(fabricante, false);
     
         return this.fabricanteRepository.save(fabricante);
     }
 
-    private validateFabricante(fabricante: FabricanteEntity | FabricanteDto) {
-        this.validateCnpjUnico(fabricante.cnpj);
-        this.validateFabricanteAtivo(fabricante.id);
-        this.validateLicencaFabricanteAtivo(fabricante.id);
+    private async validateFabricante(fabricante: FabricanteEntity | FabricanteDto, isCreate: boolean) {
+        if (isCreate) {
+            await this.validateCnpjUnico(fabricante.cnpj);
+        }
+        await this.validateFabricanteAtivo(fabricante.id);
+        await this.validateLicencaFabricanteAtivo(fabricante.id);
     }
 
     private async validateCnpjUnico(cnpj: string) {
