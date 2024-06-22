@@ -1,0 +1,122 @@
+{
+	"info": {
+		"_postman_id": "a27f2ef7-b6f9-40a7-ad17-2e7bfb7dcbfb",
+		"name": "Sintomas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28019502",
+		"_collection_link": "https://cloudy-zodiac-150706.postman.co/workspace/projetoLoja~de72aa6c-f0d7-4239-b8c4-3aaa95aed5ea/collection/28019502-a27f2ef7-b6f9-40a7-ad17-2e7bfb7dcbfb?action=share&source=collection_link&creator=28019502"
+	},
+	"item": [
+		{
+			"name": "GET",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/sintomas",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"sintomas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/sintomas/dfbe6f9f-27e3-4d2d-ab85-8e94da895ded",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"sintomas",
+						"dfbe6f9f-27e3-4d2d-ab85-8e94da895ded"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\": \"14f902c9-d51f-40fd-a937-997661bdcb28\",\r\n        \"nome\": \"Falta de Ar\",\r\n        \"ativo\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/sintomas/dfbe6f9f-27e3-4d2d-ab85-8e94da895ded",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"sintomas",
+						"dfbe6f9f-27e3-4d2d-ab85-8e94da895ded"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/sintomas/efbd2abc-8664-4d21-a3d2-ef4e9c9aa19c",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"sintomas",
+						"efbd2abc-8664-4d21-a3d2-ef4e9c9aa19c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Congestão nasal\",\r\n    \"ativo\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/sintomas",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"sintomas"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

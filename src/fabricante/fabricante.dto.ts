@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer';
 import {
     IsArray,
     IsBoolean,
@@ -7,6 +8,7 @@ import {
     IsOptional,
     IsString,
     IsUUID,
+    ValidateNested,
   } from 'class-validator';
 import { RemedioEntity } from 'src/remedio/remedio.entity';
   
@@ -37,7 +39,6 @@ import { RemedioEntity } from 'src/remedio/remedio.entity';
     @IsBoolean()
     licencaativa: boolean;
 
-    @IsArray()
-    remedios: RemedioEntity[];
+    remedios?: RemedioEntity[];
 
   }

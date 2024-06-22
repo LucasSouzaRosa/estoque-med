@@ -1,0 +1,124 @@
+{
+	"info": {
+		"_postman_id": "459f1814-d2e5-4aba-bc59-35d3fc261ba4",
+		"name": "Remedios",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28019502",
+		"_collection_link": "https://cloudy-zodiac-150706.postman.co/workspace/projetoLoja~de72aa6c-f0d7-4239-b8c4-3aaa95aed5ea/collection/28019502-459f1814-d2e5-4aba-bc59-35d3fc261ba4?action=share&source=collection_link&creator=28019502"
+	},
+	"item": [
+		{
+			"name": "GET",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/remedios/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"remedios",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/remedios/6c580850-adce-44b0-a68f-06642871302d",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"remedios",
+						"6c580850-adce-44b0-a68f-06642871302d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Paracetamol 400mg\",\r\n  \"descricao\": \"Analgésico e antitérmico.\",\r\n  \"dataValidade\": \"2024-12-31\",\r\n  \"tipo\": \"O\",\r\n  \"saldo\": 150,\r\n  \"controlado\": false,\r\n  \"fabricanteId\": \"d6dcb104-8bcc-4c03-ba4a-6b883b15dfe4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/remedios/6c580850-adce-44b0-a68f-06642871302d",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"remedios",
+						"6c580850-adce-44b0-a68f-06642871302d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/remedios/6c580850-adce-44b0-a68f-06642871302d",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"remedios",
+						"6c580850-adce-44b0-a68f-06642871302d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Neosoro 0.05%\",\r\n    \"descricao\": \"Descongestionante nasal.\",\r\n    \"saldo\": 75,\r\n    \"tipo\": \"G\",\r\n    \"dataValidade\": \"2025-03-31\",\r\n    \"controlado\": false,\r\n    \"fabricanteId\": \"d6dcb104-8bcc-4c03-ba4a-6b883b15dfe4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/remedios/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"remedios",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

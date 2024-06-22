@@ -4,12 +4,16 @@ import { RemedioEntity } from './remedio.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RemedioDto } from './remedio.dto';
 import { TipoEnum } from './tipo.enum';
+import { FabricanteEntity } from 'src/fabricante/fabricante.entity';
 
 @Injectable()
 export class RemedioService {
+    
     constructor(
         @InjectRepository(RemedioEntity)
         private remedioRepository: Repository<RemedioEntity>, 
+        @InjectRepository(FabricanteEntity)
+        private fabricanteRepository: Repository<FabricanteEntity>,
     ) {}
 
     findAll() {
@@ -36,20 +40,46 @@ export class RemedioService {
     }
 
     async create(dto: RemedioDto) {
-        const newRemedio = this.remedioRepository.create(dto);
-
+        const fabricante = await this.fabricanteRepository.findOne({
+            where: { id: dto.fabricanteId }
+        });
+    
+        if (!fabricante) {
+            throw new NotFoundException('Fabricante não encontrado com o id ' + dto.fabricanteId);
+        }
+    
+        const newRemedio = this.remedioRepository.create({
+            ...dto,
+            fabricante,
+        });
+    
         this.validateRemedio(newRemedio);
     
         return this.remedioRepository.save(newRemedio);
     }
 
-    async update(remedio: RemedioDto) {
-        await this.findById(remedio.id);
-
-        this.validateRemedio(remedio);
-
-        return this.remedioRepository.save(remedio);
+    async update(dto: RemedioDto) {
+        const existingRemedio = await this.findById(dto.id);
+    
+        const fabricante = await this.fabricanteRepository.findOne({
+            where: { id: dto.fabricanteId }
+        });
+    
+        if (!fabricante) {
+            throw new NotFoundException('Fabricante não encontrado com o id ' + dto.fabricanteId);
+        }
+    
+        const updatedRemedio = this.remedioRepository.create({
+            ...existingRemedio,
+            ...dto,
+            fabricante,
+        });
+    
+        this.validateRemedio(updatedRemedio);
+    
+        return this.remedioRepository.save(updatedRemedio);
     }
+    
 
     private validateRemedio(remedio: RemedioEntity | RemedioDto) {
         this.validateRemedioValidade(remedio);

@@ -12,8 +12,8 @@ import {
     ValidateNested,
   } from 'class-validator';
   import { TipoEnum } from './tipo.enum';
-import { Type } from 'class-transformer';
-import { FabricanteDto } from 'src/fabricante/fabricante.dto';
+  import { Type } from 'class-transformer';
+  import { FabricanteDto } from 'src/fabricante/fabricante.dto';
   
   export class RemedioDto {
     @IsUUID()
@@ -44,5 +44,6 @@ import { FabricanteDto } from 'src/fabricante/fabricante.dto';
     controlado: boolean;
 
     @IsUUID()
+    @IsNotEmpty({ message: 'O fabricanteId deve ser um UUID válido' })
     fabricanteId: string;
-  }
+}

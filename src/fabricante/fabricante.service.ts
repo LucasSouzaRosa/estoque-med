@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import { FabricanteEntity } from './fabricante.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FabricanteDto } from './fabricante.dto';
+import { UUID } from 'typeorm/driver/mongodb/bson.typings';
 
 @Injectable()
 export class FabricanteService {
@@ -41,33 +42,44 @@ export class FabricanteService {
     async create(dto: FabricanteDto) {
         const newFabricante = this.fabricanteRepository.create(dto);
     
-        this.validateFabricante(newFabricante, true);
+        await this.validateFabricante(newFabricante, true);
     
         return this.fabricanteRepository.save(newFabricante);
     }
-
+    
     async update(fabricante: FabricanteDto) {
         await this.findById(fabricante.id);
     
-        this.validateFabricante(fabricante, false);
+        await this.validateFabricante(fabricante, false);
     
         return this.fabricanteRepository.save(fabricante);
     }
-
+    
     private async validateFabricante(fabricante: FabricanteEntity | FabricanteDto, isCreate: boolean) {
         if (isCreate) {
             await this.validateCnpjUnico(fabricante.cnpj);
+        } else {
+            await this.validateCnpjUnico(fabricante.cnpj, fabricante.id);
         }
         await this.validateFabricanteAtivo(fabricante.id);
         await this.validateLicencaFabricanteAtivo(fabricante.id);
     }
-
-    private async validateCnpjUnico(cnpj: string) {
-        const existingFabricante = await this.fabricanteRepository.findOne({ where: { cnpj } });
+    
+    private async validateCnpjUnico(cnpj: string, ignoreId?: string) {
+        const query = this.fabricanteRepository.createQueryBuilder('fabricante')
+            .where('fabricante.cnpj = :cnpj', { cnpj });
+    
+        if (ignoreId) {
+            query.andWhere('fabricante.id != :id', { id: ignoreId });
+        }
+    
+        const existingFabricante = await query.getOne();
+    
         if (existingFabricante) {
             throw new BadRequestException('Já existe um fabricante com o CNPJ ' + cnpj);
         }
     }
+    
 
     private async validateFabricanteAtivo(id: string) {
         const fabricante = await this.findById(id);

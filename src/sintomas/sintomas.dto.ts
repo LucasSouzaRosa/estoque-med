@@ -23,9 +23,9 @@ import { RemedioDto } from 'src/remedio/remedio.dto';
     @IsOptional()
     descricao: string;
 
-    @IsArray()
+    /*@IsArray()
     @ArrayNotEmpty()
     @ValidateNested({ each: true })
-    @Type(() => RemedioDto)
-    remedio: RemedioDto[];
+    @Type(() => RemedioDto)*/
+    remedio?: RemedioDto[];
   }
