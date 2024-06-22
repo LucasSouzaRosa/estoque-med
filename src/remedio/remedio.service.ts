@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { RemedioDto } from './remedio.dto';
 import { TipoEnum } from './tipo.enum';
 import { FabricanteEntity } from 'src/fabricante/fabricante.entity';
+import { SintomasEntity } from 'src/sintomas/sintomas.entity';
 
 @Injectable()
 export class RemedioService {
@@ -14,6 +15,8 @@ export class RemedioService {
         private remedioRepository: Repository<RemedioEntity>, 
         @InjectRepository(FabricanteEntity)
         private fabricanteRepository: Repository<FabricanteEntity>,
+        @InjectRepository(FabricanteEntity)
+        private sintomasRepository: Repository<SintomasEntity>,
     ) {}
 
     findAll() {
@@ -108,14 +111,17 @@ export class RemedioService {
         }
     }
 
-    private adicionarSaldo(remedio: RemedioEntity, quantidadeAdicional: number) {
-        remedio.saldo += quantidadeAdicional;
-    }
     
-    private removerSaldo(remedio: RemedioEntity, quantidadeAdicional: number) {
-        remedio.saldo -= quantidadeAdicional;
+    async findBySintomaId(sintomaId: string): Promise<RemedioEntity[]> {
+        const remedios = await this.remedioRepository.createQueryBuilder('remedio')
+            .innerJoin('remedio.sintomas', 'sintoma')
+            .where('sintoma.id = :sintomaId', { sintomaId })
+            .getMany();
+
+        if (!remedios || remedios.length === 0) {
+            throw new NotFoundException(`Nenhum remédio encontrado para o sintoma com id ${sintomaId}`);
+        }
+
+        return remedios;
     }
-
-
-
 }

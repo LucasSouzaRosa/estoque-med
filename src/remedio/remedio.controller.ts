@@ -38,6 +38,9 @@ export class RemedioController {
       return this.remedioService.update({ id, ...dto });
     }
 
-    
+    @Get('por-sintoma/:sintomaId')
+    findBySintomaId(@Param('sintomaId') sintomaId: string) {
+        return this.remedioService.findBySintomaId(sintomaId);
+    }
 }
 

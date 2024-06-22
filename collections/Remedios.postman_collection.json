@@ -46,6 +46,26 @@
 			"response": []
 		},
 		{
+			"name": "GET remédio by sintoma",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/remedios/por-sintoma/dfbe6f9f-27e3-4d2d-ab85-8e94da895ded",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"remedios",
+						"por-sintoma",
+						"dfbe6f9f-27e3-4d2d-ab85-8e94da895ded"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "UPDATE",
 			"request": {
 				"method": "PUT",
